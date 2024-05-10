@@ -41,6 +41,9 @@ print(s12)
 
 W_1s = szamlalo/((s-s12[0])*(s-s12[1]))
 print(W_1s)
+T1 = -1/s12[0]
+T2 = -1/s12[1]
+print([T1,T2])
 
 
 
