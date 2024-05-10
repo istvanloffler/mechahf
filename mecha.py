@@ -40,10 +40,27 @@ s12 = sym.solve(nevezo,s)
 print(s12)
 
 W_1s = szamlalo/((s-s12[0])*(s-s12[1]))
-print(W_1s)
 T1 = -1/s12[1]
 T2 = -1/s12[0]
+print(W_1s)
 print([T1,T2])
+
+
+#2.2-es feladat
+W_UOm = W_1/gsz
+W_Ui = (B_r*N**2+(J_r*N**2+J_t)*s)/nevezo
+W_MOm = (-R-L*s)/nevezo
+W_Mi = (k_m*N)/nevezo
+
+lim_W_UOm = sym.limit(W_UOm,s,0)
+lim_W_Ui = sym.limit(W_Ui,s,0)
+lim_W_MOm = sym.limit(W_MOm,s,0)
+lim_W_Mi = sym.limit(W_Mi,s,0)
+
+print(lim_W_UOm)
+print(lim_W_Ui)
+print(lim_W_MOm)
+print(lim_W_Mi)
 
 
 
