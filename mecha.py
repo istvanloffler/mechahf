@@ -1,6 +1,7 @@
 import numpy as np
 import sympy as sym
 
+#Adatok
 R=0.454;
 L=0.6*10**(-4);
 k_m=0.0116;
@@ -13,8 +14,7 @@ B_r=2*10**(-6);
 U_be=6;
 
 
-#1.5-os feladat
-
+#1 e, feladat
 t = sym.Symbol('t')
 s = sym.Symbol('s')
 
@@ -23,19 +23,16 @@ P12 = R*(J_r*N**2+J_t)+L*B_r*N**2
 P13 = R*B_r*N**2+k_m**2*N**2
 nevezo = P11*s**2+P12*s+P13
 szamlalo = k_m*N
-print(nevezo)
-
 gsz = 1/s #gerjesztés
 
 W_1 = (k_m*N)/(P11*s**2+P12*s+P13)*gsz
 print(W_1)
 
-W_2 = sym.integrals.inverse_laplace_transform(W_1, s, t)
-print(W_2)
+W_1_invL = sym.integrals.inverse_laplace_transform(W_1, s, t)
+print(W_1_invL)
+#sym.plot(W_1_invL,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
 
-
-#1.6-os feladat
-
+#1 f, feladat
 s12 = sym.solve(nevezo,s)
 print(s12)
 
@@ -46,7 +43,7 @@ print(W_1s)
 print([T1,T2])
 
 
-#2.2-es feladat
+#2 b, feladat
 W_UOm = W_1/gsz
 W_Ui = (B_r*N**2+(J_r*N**2+J_t)*s)/nevezo
 W_MOm = (-R-L*s)/nevezo
@@ -62,18 +59,53 @@ print(lim_W_Ui)
 print(lim_W_MOm)
 print(lim_W_Mi)
 
+#2 c, fleadat
+W_1_invLalg = sym.integrals.inverse_laplace_transform(W_1/gsz,s,t)
+W_1s_invLalg = sym.integrals.inverse_laplace_transform(W_1s,s,t)
+print(W_1_invLalg)
+print(W_1s_invLalg)
+
+#2 d, feladat
+W_Omt = W_1*U_be*4
+W_Omt = sym.integrals.inverse_laplace_transform(W_Omt,s,t)
+#sym.plot(W_Omt,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
+
+
+#2 e, feladat
+Mmax = abs((i_n-U_be*lim_W_Ui)/lim_W_Mi)
+print(Mmax)
+
+
+#3 a, eladat
 
 
 
+#4 szorgalmi feladat
+P11_2 = L*(J_r*N**2+J_t)
+P12_2 = R*(J_r*N**2+J_t)+L*10*B_r*N**2
+P13_2 = R*10*B_r*N**2+k_m**2*N**2
+nevezo_2 = P11_2*s**2+P12_2*s+P13_2
+
+W_Ui2 = (10*B_r*N**2+(J_r*N**2+J_t)*s)/nevezo_2
+W_Mi2 = (k_m*N)/nevezo_2
+
+lim_W_Ui2 = sym.limit(W_Ui2,s,0)
+lim_W_Mi2 = sym.limit(W_Mi2,s,0)
+
+Mmax2 = abs((i_n-U_be*lim_W_Ui2)/lim_W_Mi2)
+print(Mmax2)
 
 
+P11_3 = L*(J_r*N**2+J_t)
+P12_3 = R*(J_r*N**2+J_t)+L*B_r/10*N**2
+P13_3 = R*B_r/10*N**2+k_m**2*N**2
+nevezo_3 = P11_3*s**2+P12_3*s+P13_3
 
+W_Ui3 = (B_r/10*N**2+(J_r*N**2+J_t)*s)/nevezo_3
+W_Mi3 = (k_m*N)/nevezo_3
 
+lim_W_Ui3 = sym.limit(W_Ui3,s,0)
+lim_W_Mi3 = sym.limit(W_Mi3,s,0)
 
-#W_1 = 783/(2500*s*((7326498479328773*s^2)/37778931862957161709568 +(1691909079830335*s)/1152921504606846976 + 7116132150715785/72057594037927936))
-x1=7116132150715785/72057594037927936*2500
-x2=(1691909079830335)/1152921504606846976*2500
-x3=2500*((7326498479328773)/37778931862957161709568)
-
-
-#print(783/1000,"/ (",x1/1000," + ",x2/1000,"s + ",x3/1000,"s^2)")
+Mmax3 = abs((i_n-U_be*lim_W_Ui3)/lim_W_Mi3)
+print(Mmax3)
