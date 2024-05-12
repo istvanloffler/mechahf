@@ -12,6 +12,7 @@ N=27;
 J_t=10**(-5);
 B_r=2*10**(-6);
 U_be=6;
+dt = 0.05
 
 
 #1 e, feladat
@@ -66,9 +67,9 @@ print(W_1_invLalg)
 print(W_1s_invLalg)
 
 #2 d, feladat
-W_Omt = W_1*U_be*4
+W_Omt = W_1*U_be
 W_Omt = sym.integrals.inverse_laplace_transform(W_Omt,s,t)
-#sym.plot(W_Omt,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
+sym.plot(W_Omt,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
 
 
 #2 e, feladat
@@ -76,8 +77,26 @@ Mmax = abs((i_n-U_be*lim_W_Ui)/lim_W_Mi)
 print(Mmax)
 
 
-#3 a, eladat
+#3 a, feladat
+A11 = -R*dt/L-1
+A12 = -dt*k_m/L
+A21 = dt*k_m/J_r
+A22 = 1
+B1 = -dt/L
+B2 = 0
+C1 = 0
+C2 = 1
+D = 0
 
+print(A11)
+print(A12)
+print(A21)
+print(A22)
+print(B1)
+print(B2)
+
+
+#3 b, feladat
 
 
 #4 szorgalmi feladat
