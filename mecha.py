@@ -69,7 +69,7 @@ print(W_1s_invLalg)
 #2 d, feladat
 W_Omt = W_1*U_be
 W_Omt = sym.integrals.inverse_laplace_transform(W_Omt,s,t)
-sym.plot(W_Omt,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
+#sym.plot(W_Omt,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
 
 
 #2 e, feladat
@@ -93,10 +93,33 @@ print(A12)
 print(A21)
 print(A22)
 print(B1)
-print(B2)
 
 
 #3 b, feladat
+Ab = sym.Matrix(2,2,[-R/L,-k_m/L,k_m/J_r,0])
+I = sym.Matrix(2,2,[1,0,0,1])
+M1 = I-Ab*dt
+Abd = M1.inv()
+A11b = 1+(R/L)*dt
+A12b = k_m/L*dt
+A21b = -k_m/J_r*dt
+A22b = 1*dt
+M = sym.Matrix(2,2,[A11b,A12b,A21b,A22b])
+M_inverse = M.inv()
+Bb = sym.Matrix(2,1,[(1/L),0])
+Bbd = M_inverse*Bb
+Cb = sym.Matrix([0,1])
+Cbd = M_inverse*Cb
+Db = sym.Matrix([0,0])
+Dbd = sym.Matrix([Cb[0]*Bbd[0],Cb[1]*Bbd[1]])
+
+print(M_inverse)
+print(Abd)
+print(Bbd)
+print(Cbd)
+print(Dbd)
+
+
 
 
 #4 szorgalmi feladat
