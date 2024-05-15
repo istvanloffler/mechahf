@@ -80,7 +80,7 @@ A11 = -R*dt/L-1
 A12 = -dt*k_m/L
 A21 = dt*k_m/J_r
 A22 = 1
-B1 = -dt/L
+B1 = dt/L
 B2 = 0
 C1 = 0
 C2 = 1
@@ -110,7 +110,22 @@ print("Bd Matrix = ",Bbd)
 print("Cd Matrix = ",Cbd)
 print("Dd Matrix = ",Dbd)
 
+#3 c, feladat
+n = 5
+omega1 = [0]*6
+i1 = [0]*6
+for k in range(n):
+    i1[k+1] = A11*i1[k]+A12*omega1[k] + B1*U_be
+    omega1[k+1] = A21*i1[k] + A22*omega1[k]
 
+omega2 = [0]*6
+i2 = [0]*6
+for k in range(n):
+    i2[k+1] = Abd[0,0]*i2[k]+Abd[0,1]*omega2[k] + Bbd[0]*U_be
+    omega2[k+1] = Abd[1,0]*i2[k] + Abd[1,1]*omega2[k] + Bbd[1]*U_be
+
+print("Forward Euler egységugrásra adott válasz =", omega1)
+print("Backward Euler egységugrásra adott válasz =", omega2)
 
 
 #4 szorgalmi feladat
