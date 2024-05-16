@@ -31,7 +31,7 @@ print("WUom(s) = ",W_1)
 
 W_1_invL = sym.integrals.inverse_laplace_transform(W_1, s, t)
 print("omegat és Ube közötti átmeneti fgv = ",W_1_invL)
-#sym.plot(W_1_invL,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
+sym.plot(W_1_invL,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
 
 #1 f, feladat
 s12 = sym.solve(nevezo,s)
@@ -67,7 +67,7 @@ print("Wuomega = ",W_1s_invLalg)
 #2 d, feladat
 W_Omt = W_1*U_be
 W_Omt = sym.integrals.inverse_laplace_transform(W_Omt,s,t)
-#sym.plot(W_Omt,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
+sym.plot(W_Omt,(t,0,0.2), ylabel='szögsebesség[rad/s]', xlabel='idő[s]')
 
 
 #2 e, feladat
@@ -76,10 +76,10 @@ print("Mmax = ",Mmax)
 
 
 #3 a, feladat
-A11 = -R*dt/L-1
+A11 = -(R*dt/L-1)
 A12 = -dt*k_m/L
 A21 = dt*k_m/J_r
-A22 = 1
+A22 = 1-B_r*dt/J_r
 B1 = dt/L
 B2 = 0
 C1 = 0
@@ -109,18 +109,22 @@ print("Ad Matrix = ",Abd)
 print("Bd Matrix = ",Bbd)
 print("Cd Matrix = ",Cbd)
 print("Dd Matrix = ",Dbd)
+print(1/L)
 
 #3 c, feladat
 n = 5
 omega1 = [0]*6
 i1 = [0]*6
+
 for k in range(n):
-    i1[k+1] = A11*i1[k]+A12*omega1[k] + B1*U_be
+
+    i1[k + 1] = A11 * i1[k] + A12 * omega1[k] + B1*U_be
     omega1[k+1] = A21*i1[k] + A22*omega1[k]
 
 omega2 = [0]*6
 i2 = [0]*6
 for k in range(n):
+
     i2[k+1] = Abd[0,0]*i2[k]+Abd[0,1]*omega2[k] + Bbd[0]*U_be
     omega2[k+1] = Abd[1,0]*i2[k] + Abd[1,1]*omega2[k] + Bbd[1]*U_be
 
